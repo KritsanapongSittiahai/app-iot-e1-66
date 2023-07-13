@@ -8,7 +8,7 @@ const multer = require('multer')
 const db = knex({
     client: 'mysql',
     connection: {
-        host: process.env.MYSQL_HOST || 'localhost',
+        host: process.env.MYSQL_HOST || '127.0.0.1',
         port: process.env.MYSQL_PORT || 3306,
         user: process.env.MYSQL_USER || 'root',
         password: process.env.MYSQL_PASS || '123456',
@@ -26,13 +26,14 @@ app.get('/', (req, res) => {
     res.send({ ok: 1 })
 })
 app.get('/lists', async (req, res) => {
-    let row = await db('user')
+    console.log('lists')
+    let row = await db('users_advisor')
+    // .where("major_id", 98)
     res.send({
         datas: row,
         status: 1,
     })
 })
-
 app.listen(7001, () => {
     console.log('ready:candle:7001')
 })
